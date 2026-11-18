@@ -2,6 +2,7 @@ import { Container } from "@/components/shared/Container";
 import { GetInvolvedBand } from "@/components/shared/GetInvolvedBand";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { PageHero } from "@/components/shared/PageHero";
+import { PageTransition } from "@/components/shared/PageTransition";
 import { ThematicCard } from "@/features/thematic-areas/components/ThematicCard";
 import { THEMATIC_AREAS } from "@/features/thematic-areas/data/thematicAreas";
 import { buildMetadata, webPageJsonLd } from "@/lib/seo";
@@ -15,7 +16,7 @@ export const metadata = buildMetadata({ title: TITLE, description: DESCRIPTION, 
 
 export default function ThematicAreasPage() {
   return (
-    <>
+    <PageTransition>
       <PageHero
         eyebrow="Thematic areas"
         title="Where we focus our research and advocacy."
@@ -26,7 +27,7 @@ export default function ThematicAreasPage() {
       />
 
       <section aria-label="Programmes" className="py-20 lg:py-28">
-        <Container className="grid gap-6 md:grid-cols-2">
+        <Container className="stagger grid gap-6 md:grid-cols-2">
           {THEMATIC_AREAS.map((area) => (
             <ThematicCard key={area.slug} area={area} headingLevel="h2" />
           ))}
@@ -35,6 +36,6 @@ export default function ThematicAreasPage() {
 
       <GetInvolvedBand />
       <JsonLd data={webPageJsonLd({ name: TITLE, description: DESCRIPTION, path: "/thematic-areas" })} />
-    </>
+    </PageTransition>
   );
 }

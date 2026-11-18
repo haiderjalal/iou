@@ -1,0 +1,447 @@
+/* ================================================================== */
+/* Motion layer 2 — ambient life, kinetic scroll, page transitions     */
+/* Every animation is opt-in (prefers-reduced-motion: no-preference)   */
+/* and animates only transform/opacity-type properties where possible. */
+/* ================================================================== */
+
+/* Sibling index for staggered reveals inside a .stagger container. */
+.stagger > :nth-child(2) {
+  --i: 1;
+}
+.stagger > :nth-child(3) {
+  --i: 2;
+}
+.stagger > :nth-child(4) {
+  --i: 3;
+}
+.stagger > :nth-child(5) {
+  --i: 4;
+}
+.stagger > :nth-child(6) {
+  --i: 5;
+}
+.stagger > :nth-child(7) {
+  --i: 6;
+}
+.stagger > :nth-child(8) {
+  --i: 7;
+}
+
+/* Gradient text for highlighted headline words (static when motion is reduced). */
+.text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-leaf-300) 0%,
+    var(--color-leaf-100) 25%,
+    var(--color-leaf-300) 50%,
+    var(--color-leaf-400) 75%,
+    var(--color-leaf-300) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hover shine sweep for cards and buttons. */
+.shine {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.28) 50%, transparent 65%);
+  translate: -120% 0;
+}
+
+/* Reading-progress bar under the header (hidden until scroll-driven support is confirmed). */
+.scroll-progress {
+  transform-origin: left;
+  scale: 0 1;
+}
+
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.55em;
+    filter: blur(10px);
+  }
+}
+@keyframes gradient-pan {
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes aurora {
+  0%,
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+  33% {
+    translate: 12% -10%;
+    scale: 1.2;
+  }
+  66% {
+    translate: -10% 8%;
+    scale: 0.9;
+  }
+}
+@keyframes cloud-drift {
+  from {
+    translate: -280px 0;
+  }
+  to {
+    translate: 1720px 0;
+  }
+}
+@keyframes drive-right {
+  from {
+    translate: -160px 0;
+  }
+  to {
+    translate: 1600px 0;
+  }
+}
+@keyframes drive-left {
+  from {
+    translate: 1600px 0;
+  }
+  to {
+    translate: -160px 0;
+  }
+}
+@keyframes lane-flow {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    rotate: -2.5deg;
+  }
+  50% {
+    rotate: 2.5deg;
+  }
+}
+@keyframes fly {
+  from {
+    translate: -120px 30px;
+  }
+  to {
+    translate: 1620px -50px;
+  }
+}
+@keyframes flap {
+  0%,
+  100% {
+    scale: 1 1;
+  }
+  50% {
+    scale: 1 0.35;
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.12;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    scale: 1;
+  }
+  50% {
+    opacity: 0.95;
+    scale: 1.15;
+  }
+}
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes pulse-ring {
+  from {
+    scale: 0.6;
+    opacity: 0.7;
+  }
+  to {
+    scale: 2.4;
+    opacity: 0;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -8px;
+  }
+}
+@keyframes shine-sweep {
+  from {
+    translate: -120% 0;
+  }
+  to {
+    translate: 220% 0;
+  }
+}
+@keyframes wipe-in {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes zoom-settle {
+  from {
+    scale: 1.25;
+  }
+  to {
+    scale: 1;
+  }
+}
+@keyframes kinetic-left {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -30% 0;
+  }
+}
+@keyframes kinetic-right {
+  from {
+    translate: -30% 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@keyframes grow-x {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes progress-fill {
+  to {
+    scale: 1 1;
+  }
+}
+@keyframes hero-exit {
+  to {
+    opacity: 0;
+    translate: 0 -90px;
+  }
+}
+@keyframes hero-sink {
+  to {
+    translate: 0 16%;
+  }
+}
+@keyframes assemble {
+  from {
+    opacity: 0;
+    translate: var(--from-x, 0) var(--from-y, 0);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+    translate: 0 -14px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Word-by-word headline entrance (--w = word index, --delay = start offset). */
+  .animate-words .word {
+    display: inline-block;
+    animation: word-rise 0.95s var(--ease-out-expo) both;
+    animation-delay: calc(var(--delay, 0ms) + var(--w, 0) * 75ms);
+  }
+
+  .text-shimmer {
+    animation: gradient-pan 7s linear infinite;
+  }
+  .animate-words .word.text-shimmer {
+    animation:
+      word-rise 0.95s var(--ease-out-expo) both,
+      gradient-pan 7s linear infinite;
+    animation-delay: calc(var(--delay, 0ms) + var(--w, 0) * 75ms), 0s;
+  }
+
+  .shine:hover::after,
+  .shine:focus-visible::after {
+    animation: shine-sweep 0.9s ease;
+  }
+
+  .anim-aurora {
+    animation: aurora var(--duration, 22s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-cloud {
+    animation: cloud-drift var(--duration, 70s) linear infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-drive-right {
+    animation: drive-right var(--duration, 16s) linear infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-drive-left {
+    animation: drive-left var(--duration, 18s) linear infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-lane {
+    animation: lane-flow 1.6s linear infinite;
+  }
+  .anim-sway {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: sway var(--duration, 6s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-fly {
+    animation: fly var(--duration, 26s) linear infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-flap {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: flap 0.7s ease-in-out infinite;
+  }
+  .anim-twinkle {
+    animation: twinkle var(--duration, 5s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-glow {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: glow-pulse 6s ease-in-out infinite;
+  }
+  .anim-spin {
+    animation: spin var(--duration, 40s) linear infinite;
+  }
+  .anim-spin-reverse {
+    animation: spin var(--duration, 60s) linear infinite reverse;
+  }
+  .anim-pulse-ring {
+    animation: pulse-ring 3s ease-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-bob {
+    animation: bob var(--duration, 4s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  /* Scroll-linked effects: they only move while the visitor scrolls. */
+  @supports ((animation-timeline: scroll()) and (animation-range: 0 100px)) {
+    .scroll-progress {
+      animation: progress-fill linear both;
+      animation-timeline: scroll(root);
+    }
+    .hero-exit {
+      animation: hero-exit linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 75vh;
+    }
+    .hero-sink {
+      animation: hero-sink linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .reveal-wipe {
+      animation: wipe-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+    .reveal-wipe img {
+      animation: zoom-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+    .kinetic-left {
+      animation: kinetic-left linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    .kinetic-right {
+      animation: kinetic-right linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    .grow-x {
+      transform-origin: left;
+      animation: grow-x linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+    .logo-assemble {
+      view-timeline: --logo;
+    }
+    .logo-assemble .piece {
+      animation: assemble linear both;
+      animation-timeline: --logo;
+      animation-range: entry 10% cover 45%;
+    }
+  }
+
+  /* Page transitions (React <ViewTransition>, progressive enhancement). */
+  ::view-transition-old(.page-exit) {
+    animation: page-out 220ms ease-in both;
+  }
+  ::view-transition-new(.page-enter) {
+    animation: page-in 480ms var(--ease-out-expo) 120ms both;
+  }
+  ::view-transition-group(.morph) {
+    animation-duration: 600ms;
+    animation-timing-function: var(--ease-out-expo);
+  }
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Global "pause animations" control (WCAG 2.2.2). Scroll-linked effects are excluded
+   on purpose: they only move while the visitor scrolls. */
+html[data-motion="paused"]
+  :is([class*="anim-"], .animate-ken-burns, .animate-drift, .animate-scroll-cue, .marquee-track, .text-shimmer) {
+  animation-play-state: paused !important;
+}
+
+/* Headline words run a one-shot entrance plus the infinite shimmer: keep the entrance
+   running so words never freeze half-visible, and pause only the shimmer. */
+html[data-motion="paused"] .animate-words .word.text-shimmer {
+  animation-play-state: running, paused !important;
+}

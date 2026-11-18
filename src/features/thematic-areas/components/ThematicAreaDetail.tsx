@@ -8,6 +8,7 @@ import { webPageJsonLd } from "@/lib/seo";
 
 import { THEMATIC_AREAS } from "../data/thematicAreas";
 import type { ThematicArea } from "../types/thematicArea";
+import { thematicImageTransitionName } from "../utils/transitionName";
 
 interface ThematicAreaDetailProps {
   area: ThematicArea;
@@ -25,6 +26,7 @@ export function ThematicAreaDetail({ area }: ThematicAreaDetailProps) {
         description={area.summary}
         image={area.image}
         imageAlt={area.imageAlt}
+        transitionName={thematicImageTransitionName(area.slug)}
         breadcrumbs={[
           { name: "Thematic Areas", path: "/thematic-areas" },
           { name: area.title, path },
@@ -83,7 +85,7 @@ export function ThematicAreaDetail({ area }: ThematicAreaDetailProps) {
           >
             What IoU aims to do
           </h2>
-          <ol className="mt-12 grid gap-5 md:grid-cols-2">
+          <ol className="stagger mt-12 grid gap-5 md:grid-cols-2">
             {area.objectives.map((objective, index) => (
               <li
                 key={objective.slice(0, 40)}
@@ -104,7 +106,7 @@ export function ThematicAreaDetail({ area }: ThematicAreaDetailProps) {
           <h2 id="related-heading" className="reveal text-2xl font-semibold text-forest-900">
             Explore other thematic areas
           </h2>
-          <ul className="mt-8 grid gap-4 md:grid-cols-3">
+          <ul className="stagger mt-8 grid gap-4 md:grid-cols-3">
             {otherAreas.map((other) => (
               <li key={other.slug} className="reveal">
                 <Link

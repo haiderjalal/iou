@@ -12,7 +12,7 @@ interface ButtonLinkProps extends Omit<ComponentProps<typeof Link>, "className">
 }
 
 const BASE =
-  "group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-[background-color,color,box-shadow,translate] duration-300 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0";
+  "shine group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-[background-color,color,box-shadow,translate] duration-300 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0";
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary:

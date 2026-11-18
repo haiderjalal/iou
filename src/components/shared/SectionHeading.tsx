@@ -35,7 +35,7 @@ export function SectionHeading({
           isLight ? "text-leaf-300" : "text-leaf-700",
         )}
       >
-        <span aria-hidden className={cn("h-px w-8", isLight ? "bg-leaf-300" : "bg-leaf-600")} />
+        <span aria-hidden className={cn("grow-x h-px w-8", isLight ? "bg-leaf-300" : "bg-leaf-600")} />
         {eyebrow}
       </p>
       <Heading

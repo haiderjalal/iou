@@ -2,7 +2,9 @@ import { ArrowUpRight, FileText, Mail, MapPin } from "lucide-react";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
 
+import { AuroraBackdrop } from "@/components/shared/AuroraBackdrop";
 import { Container } from "@/components/shared/Container";
+import { LeafField } from "@/components/shared/LeafField";
 import { LogoMark } from "@/components/shared/LogoMark";
 import { MAIN_NAV, MISSION, SITE } from "@/content/site";
 import { THEMATIC_AREAS } from "@/features/thematic-areas/data/thematicAreas";
@@ -19,11 +21,13 @@ const FOOTER_LINK =
 
 export function SiteFooter() {
   return (
-    <footer className="bg-topo relative overflow-hidden bg-forest-950 text-white">
+    <footer className="bg-topo relative isolate overflow-hidden bg-forest-950 text-white">
+      <AuroraBackdrop className="opacity-50" />
+      <LeafField />
       <Container className="grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12 lg:py-20">
         <div className="lg:col-span-4">
           <Link href="/" className="inline-flex items-center gap-3 rounded-md">
-            <LogoMark tone="light" className="h-12 w-auto" />
+            <LogoMark tone="light" assemble className="h-12 w-auto" />
             <span className="leading-tight">
               <span className="block font-display text-xl font-semibold">{SITE.name}</span>
               <span className="block text-sm text-leaf-300">{SITE.tagline}</span>

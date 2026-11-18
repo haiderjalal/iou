@@ -16,7 +16,7 @@ export function ApproachSection() {
             title="Evidence in, action out."
             description="As a think tank with roots in civic activism, IoU connects empirical research with the people and institutions that shape our cities."
           />
-          <div className="reveal relative mt-10 aspect-[4/3] overflow-hidden rounded-[1.75rem] shadow-xl shadow-forest-900/15">
+          <div className="reveal-wipe relative mt-10 aspect-[4/3] overflow-hidden rounded-[1.75rem] shadow-xl shadow-forest-900/15">
             <Image
               src={dialogueImage}
               alt="A group of people in a lively discussion during a community meeting"

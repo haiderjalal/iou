@@ -18,7 +18,7 @@ export function StorySection() {
     <section id="our-story" aria-labelledby="story-heading" className="scroll-mt-24 py-20 lg:py-32">
       <Container className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
         <div className="relative order-2 lg:order-1">
-          <div className="reveal relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-forest-900/20 sm:w-4/5">
+          <div className="reveal-wipe relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-forest-900/20 sm:w-4/5">
             <Image
               src={greenStreetImage}
               alt="A quiet, tree-lined city road with a footpath shaded by mature trees"
@@ -28,7 +28,7 @@ export function StorySection() {
               className="object-cover"
             />
           </div>
-          <div className="reveal absolute right-0 -bottom-10 hidden aspect-[4/3] w-1/2 overflow-hidden rounded-[1.5rem] border-8 border-paper shadow-xl sm:block">
+          <div className="reveal-wipe absolute right-0 -bottom-10 hidden aspect-[4/3] w-1/2 overflow-hidden rounded-[1.5rem] border-8 border-paper shadow-xl sm:block">
             <Image
               src={faisalMosqueImage}
               alt="The Faisal Mosque in Islamabad against the Margalla Hills"
@@ -38,7 +38,7 @@ export function StorySection() {
               className="object-cover"
             />
           </div>
-          <div className="reveal absolute top-8 -right-2 max-w-60 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5 sm:right-6 lg:-right-6">
+          <div className="anim-bob absolute top-8 -right-2 max-w-60 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5 sm:right-6 lg:-right-6">
             <TreeDeciduous className="size-7 text-leaf-500" aria-hidden />
             <p className="mt-2 font-display text-lg leading-snug text-forest-900">
               Restoring the balance between green and grey.
@@ -59,7 +59,7 @@ export function StorySection() {
             description="In 2015, rapid road construction in Islamabad cut down old trees, shrank green spaces and worsened air quality. Citizens responded with Reclaiming Green Islamabad — demonstrations, public-interest litigation and a new culture of participatory governance."
           />
 
-          <ol className="mt-10 space-y-6 border-l-2 border-leaf-200 pl-8">
+          <ol className="stagger mt-10 space-y-6 border-l-2 border-leaf-200 pl-8">
             {STORY_POINTS.map((point) => (
               <li key={point.year} className="reveal relative">
                 <span
