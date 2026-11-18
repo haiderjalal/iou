@@ -5,8 +5,10 @@ import { ApproachGrid } from "@/components/shared/ApproachGrid";
 import { Container } from "@/components/shared/Container";
 import { GetInvolvedBand } from "@/components/shared/GetInvolvedBand";
 import { JsonLd } from "@/components/shared/JsonLd";
+import { KineticBand } from "@/components/shared/KineticBand";
 import { MissionVisionBand } from "@/components/shared/MissionVisionBand";
 import { PageHero } from "@/components/shared/PageHero";
+import { PageTransition } from "@/components/shared/PageTransition";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { MILESTONES, SITE } from "@/content/site";
 import { Timeline } from "@/features/about/components/Timeline";
@@ -22,7 +24,7 @@ export const metadata = buildMetadata({ title: TITLE, description: DESCRIPTION, 
 
 export default function AboutPage() {
   return (
-    <>
+    <PageTransition>
       <PageHero
         eyebrow="Who we are"
         title="Born on the streets of Islamabad. Built for every Pakistani city."
@@ -36,7 +38,7 @@ export default function AboutPage() {
         <Container className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-5">
             <SectionHeading id="who-heading" eyebrow="Our story" title="A movement that became an institution." />
-            <div className="reveal relative mt-10 aspect-square overflow-hidden rounded-[2rem] shadow-xl shadow-forest-900/15">
+            <div className="reveal-wipe relative mt-10 aspect-square overflow-hidden rounded-[2rem] shadow-xl shadow-forest-900/15">
               <Image
                 src={seedlingImage}
                 alt="Cupped hands holding a young green seedling above the soil"
@@ -76,6 +78,8 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+
+      <KineticBand />
 
       <section aria-labelledby="timeline-heading" className="bg-leaf-50/70 py-20 lg:py-28">
         <Container>
@@ -132,6 +136,6 @@ export default function AboutPage() {
 
       <GetInvolvedBand />
       <JsonLd data={webPageJsonLd({ name: TITLE, description: DESCRIPTION, path: "/about" })} />
-    </>
+    </PageTransition>
   );
 }

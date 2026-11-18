@@ -2,6 +2,7 @@ import { ArrowRight, Handshake, Megaphone, Sprout } from "lucide-react";
 import Image from "next/image";
 
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { cssVars } from "@/lib/motion";
 import volunteersImage from "@public/images/stock/volunteers-portrait.jpg";
 
 import { Container } from "./Container";
@@ -30,7 +31,7 @@ export function GetInvolvedBand() {
     <section aria-labelledby="get-involved-heading" className="py-20 lg:py-28">
       <Container>
         <div className="bg-topo relative grid overflow-hidden rounded-[2rem] bg-forest-900 text-white lg:grid-cols-5">
-          <div className="relative min-h-72 lg:col-span-2">
+          <div className="reveal-wipe relative min-h-72 lg:col-span-2">
             <Image
               src={volunteersImage}
               alt="Two volunteers with shovels smiling after planting a young tree"
@@ -54,10 +55,13 @@ export function GetInvolvedBand() {
               IoU grew out of citizens standing up for their city. There is a place for you in that movement.
             </p>
 
-            <ul className="mt-10 grid gap-6 sm:grid-cols-3">
-              {WAYS_TO_HELP.map(({ icon: Icon, title, description }) => (
+            <ul className="stagger mt-10 grid gap-6 sm:grid-cols-3">
+              {WAYS_TO_HELP.map(({ icon: Icon, title, description }, index) => (
                 <li key={title} className="reveal">
-                  <span className="grid size-11 place-items-center rounded-xl bg-leaf-500/15 text-leaf-300 ring-1 ring-leaf-400/30">
+                  <span
+                    className="anim-bob grid size-11 place-items-center rounded-xl bg-leaf-500/15 text-leaf-300 ring-1 ring-leaf-400/30"
+                    style={cssVars({ "--delay": `${index * -1.3}s` })}
+                  >
                     <Icon className="size-5" aria-hidden />
                   </span>
                   <h3 className="mt-4 font-sans text-base font-bold tracking-normal">{title}</h3>

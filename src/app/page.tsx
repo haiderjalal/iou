@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 
 import { GetInvolvedBand } from "@/components/shared/GetInvolvedBand";
+import { KineticBand } from "@/components/shared/KineticBand";
 import { Marquee } from "@/components/shared/Marquee";
 import { MissionVisionBand } from "@/components/shared/MissionVisionBand";
+import { PageTransition } from "@/components/shared/PageTransition";
 import { CREDIBILITY_POINTS, SITE } from "@/content/site";
 import { ApproachSection } from "@/features/home/components/ApproachSection";
 import { HeroSection } from "@/features/home/components/HeroSection";
@@ -18,15 +20,16 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <>
+    <PageTransition>
       <HeroSection />
       <Marquee items={CREDIBILITY_POINTS} label="About the Institute of Urbanism at a glance" />
       <StorySection />
       <StatsSection />
+      <KineticBand />
       <ThematicAreasSection />
       <ApproachSection />
       <MissionVisionBand />
       <GetInvolvedBand />
-    </>
+    </PageTransition>
   );
 }

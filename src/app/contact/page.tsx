@@ -3,6 +3,7 @@ import { Clock, FileText, Mail, MapPin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { PageHero } from "@/components/shared/PageHero";
+import { PageTransition } from "@/components/shared/PageTransition";
 import { SITE } from "@/content/site";
 import { ContactForm } from "@/features/contact/components/ContactForm";
 import { buildMetadata, webPageJsonLd } from "@/lib/seo";
@@ -16,7 +17,7 @@ export const metadata = buildMetadata({ title: TITLE, description: DESCRIPTION, 
 
 export default function ContactPage() {
   return (
-    <>
+    <PageTransition>
       <PageHero
         eyebrow="Contact"
         title="Let's build greener cities together."
@@ -30,7 +31,7 @@ export default function ContactPage() {
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <aside className="space-y-5 lg:col-span-4">
             <h2 className="reveal text-3xl font-semibold text-forest-900">Reach us directly</h2>
-            <ul className="space-y-4">
+            <ul className="stagger space-y-4">
               <li className="reveal flex gap-4 rounded-3xl bg-white p-6 ring-1 ring-forest-900/5">
                 <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-leaf-100 text-leaf-700">
                   <Mail className="size-5" aria-hidden />
@@ -89,6 +90,6 @@ export default function ContactPage() {
       </section>
 
       <JsonLd data={webPageJsonLd({ name: TITLE, description: DESCRIPTION, path: "/contact" })} />
-    </>
+    </PageTransition>
   );
 }

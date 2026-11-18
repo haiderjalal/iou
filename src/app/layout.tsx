@@ -4,8 +4,10 @@ import { Fraunces, Nunito_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/shared/JsonLd";
+import { MotionToggle } from "@/components/shared/MotionToggle";
 import { RevealObserver } from "@/components/shared/RevealObserver";
 import { SITE } from "@/content/site";
+import { MOTION_INIT_SCRIPT } from "@/lib/motionPreference";
 import { DEFAULT_OG_IMAGE, organizationJsonLd } from "@/lib/seo";
 
 import "./globals.css";
@@ -77,8 +79,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${headingFont.variable} ${bodyFont.variable} antialiased`}>
+    // suppressHydrationWarning: the init script may set data-motion before React hydrates.
+    <html lang="en" className={`${headingFont.variable} ${bodyFont.variable} antialiased`} suppressHydrationWarning>
       <body className="flex min-h-svh flex-col">
+        <script dangerouslySetInnerHTML={{ __html: MOTION_INIT_SCRIPT }} />
         <a
           href="#main-content"
           className="sr-only z-[100] rounded-full bg-leaf-700 px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
@@ -90,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <MotionToggle />
         <RevealObserver />
         <JsonLd data={organizationJsonLd()} />
       </body>

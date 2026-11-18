@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { GetInvolvedBand } from "@/components/shared/GetInvolvedBand";
+import { PageTransition } from "@/components/shared/PageTransition";
 import { ThematicAreaDetail } from "@/features/thematic-areas/components/ThematicAreaDetail";
 import { getThematicArea, THEMATIC_AREAS } from "@/features/thematic-areas/data/thematicAreas";
 import { buildMetadata } from "@/lib/seo";
@@ -23,9 +24,9 @@ export async function generateMetadata({ params }: PageProps<"/thematic-areas/[s
 }
 
 /**
- * Every valid slug is prerendered by generateStaticParams. Params are awaited outside any
- * Suspense boundary so unknown slugs resolve to notFound() before streaming starts and
- * return a real HTTP 404 instead of a soft 404.
+ * Every valid slug is prerendered by generateStaticParams. Unknown slugs render the
+ * not-found UI with a noindex robots tag. (With Cache Components the static shell's
+ * status is sent first, so the HTTP status is 200 rather than 404.)
  */
 export default async function ThematicAreaPage({ params }: PageProps<"/thematic-areas/[slug]">) {
   const { slug } = await params;
@@ -33,9 +34,9 @@ export default async function ThematicAreaPage({ params }: PageProps<"/thematic-
   if (!area) notFound();
 
   return (
-    <>
+    <PageTransition>
       <ThematicAreaDetail area={area} />
       <GetInvolvedBand />
-    </>
+    </PageTransition>
   );
 }

@@ -67,7 +67,11 @@ Content changes (copy, statistics, programmes) are made in `src/content/site.ts`
 
 - All pages are prerendered; client JavaScript is limited to small interactive islands.
 - Animations are CSS-first (native scroll-driven animations with an `IntersectionObserver` fallback)
-  and fully disabled for users who prefer reduced motion.
+  and fully disabled for users who prefer reduced motion. Ambient motion (hero skyline traffic, clouds,
+  aurora light, drifting leaves) lives in `src/styles/motion.css`; a floating "Pause animations"
+  control stops all looping motion site-wide (WCAG 2.2.2) and remembers the choice.
+- Page navigations use React `<ViewTransition>`: pages fade and lift, and a thematic card's photo
+  morphs into the detail page hero. Browsers without View Transitions simply navigate.
 - Images are local and served through `next/image` (AVIF/WebP, responsive sizes, blur placeholders).
 - Strict security headers (CSP, HSTS, frame, referrer and permissions policies) are set in `next.config.ts`.
 - The contact form is validated with Zod on the server and protected by a honeypot, a minimum fill time

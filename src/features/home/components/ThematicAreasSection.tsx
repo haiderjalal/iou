@@ -23,7 +23,7 @@ export function ThematicAreasSection() {
           </ButtonLink>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="stagger mt-14 grid gap-6 md:grid-cols-2">
           {THEMATIC_AREAS.map((area) => (
             <ThematicCard key={area.slug} area={area} />
           ))}
