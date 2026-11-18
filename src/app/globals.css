@@ -1,0 +1,313 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — derived from the IoU logo (leaf green + slate grey) */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-leaf-50: #f4f9ec;
+  --color-leaf-100: #e5f1d3;
+  --color-leaf-200: #cce3aa;
+  --color-leaf-300: #aed177;
+  --color-leaf-400: #93bf55;
+  --color-leaf-500: #7dad42; /* logo green — large / decorative use */
+  --color-leaf-600: #628c31;
+  --color-leaf-700: #4b6c26; /* text & buttons on white (AA) */
+  --color-leaf-800: #3d5622;
+  --color-leaf-900: #344a20;
+
+  --color-slate-brand: #94969f; /* logo grey */
+
+  --color-forest-700: #1d3326;
+  --color-forest-800: #14261c;
+  --color-forest-900: #0d1a13;
+  --color-forest-950: #08110c;
+
+  --color-paper: #f7f8f3;
+  --color-ink: #16201a;
+  --color-muted: #525b55;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), ui-serif, Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-leaf-200);
+    color: var(--color-forest-900);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-leaf-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion — CSS-first, compositor-only, always opt-in                  */
+/* ------------------------------------------------------------------ */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+@keyframes ken-burns {
+  from {
+    scale: 1.14;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes grow-up {
+  from {
+    scale: 1 0;
+  }
+}
+
+@keyframes drift {
+  0% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  50% {
+    translate: 18px -26px;
+    rotate: 25deg;
+  }
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@keyframes scroll-cue {
+  0%,
+  100% {
+    translate: 0 0;
+    opacity: 1;
+  }
+  50% {
+    translate: 0 8px;
+    opacity: 0.4;
+  }
+}
+
+@keyframes header-compact {
+  to {
+    box-shadow: 0 8px 30px -12px rgb(13 26 19 / 0.25);
+    background-color: rgb(255 255 255 / 0.92);
+  }
+}
+
+@keyframes parallax-drift {
+  from {
+    translate: 0 -8%;
+  }
+  to {
+    translate: 0 8%;
+  }
+}
+
+@keyframes timeline-fill {
+  from {
+    scale: 1 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero entrance — staggered with --delay set inline */
+  .animate-enter {
+    animation: fade-up 0.9s var(--ease-out-expo) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 18s ease-out both;
+  }
+
+  .animate-draw {
+    stroke-dasharray: var(--length, 1600);
+    stroke-dashoffset: var(--length, 1600);
+    animation: draw-line 3.2s var(--ease-out-expo) forwards;
+    animation-delay: var(--delay, 300ms);
+  }
+
+  .animate-grow {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: grow-up 1.1s var(--ease-out-expo) both;
+    animation-delay: var(--delay, 1200ms);
+  }
+
+  .animate-drift {
+    animation: drift var(--duration, 14s) ease-in-out infinite;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  .animate-scroll-cue {
+    animation: scroll-cue 2s ease-in-out infinite;
+  }
+
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+
+  .marquee[data-paused="true"] .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Scroll-driven enhancements (progressive) */
+  @supports ((animation-timeline: scroll()) and (animation-range: 0 100px)) {
+    .header-scroll {
+      animation: header-compact linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 120px;
+    }
+  }
+
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    .parallax {
+      animation: parallax-drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    .timeline-progress {
+      transform-origin: top;
+      animation: timeline-fill linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 60%;
+    }
+  }
+
+  /* IntersectionObserver fallback for browsers without view timelines.
+     The class is only added by script, so content stays visible without JS. */
+  .reveal-fallback .reveal {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+      opacity 0.8s var(--ease-out-expo),
+      translate 0.8s var(--ease-out-expo);
+  }
+
+  .reveal-fallback .reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Utility: subtle grain/topographic texture for dark sections */
+.bg-topo {
+  background-image:
+    radial-gradient(circle at 20% 15%, rgb(125 173 66 / 0.18), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgb(125 173 66 / 0.12), transparent 40%);
+}
+
+/* Mobile navigation panel (native popover) */
+.mobile-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(100%, 26rem);
+  height: 100dvh;
+  max-height: none;
+  padding: 1.25rem 1.5rem 2rem;
+  overflow-y: auto;
+  border: 0;
+  color: white;
+  background: var(--color-forest-900);
+  opacity: 0;
+  translate: 100% 0;
+  transition:
+    opacity 0.3s ease,
+    translate 0.45s var(--ease-out-expo),
+    display 0.45s,
+    overlay 0.45s;
+  transition-behavior: allow-discrete;
+
+  &:popover-open {
+    opacity: 1;
+    translate: 0 0;
+
+    @starting-style {
+      opacity: 0;
+      translate: 100% 0;
+    }
+  }
+
+  &::backdrop {
+    background: rgb(8 17 12 / 0);
+    backdrop-filter: blur(0);
+    transition:
+      background 0.35s ease,
+      backdrop-filter 0.35s ease,
+      display 0.35s,
+      overlay 0.35s;
+    transition-behavior: allow-discrete;
+  }
+
+  &:popover-open::backdrop {
+    background: rgb(8 17 12 / 0.55);
+    backdrop-filter: blur(4px);
+
+    @starting-style {
+      background: rgb(8 17 12 / 0);
+      backdrop-filter: blur(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    translate: 0 0;
+  }
+}
